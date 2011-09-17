@@ -60,7 +60,7 @@ public class VaultLink
 
     @Override
     public String getIconFileName() {
-        return "/plugin/vault-plugin/images/safe-icon-48x48.png";
+        return "/plugin/vault/images/safe-icon-48x48.png";
     }
 
     public Object getStaplerFallback() {
