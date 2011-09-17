@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The MIT License
+
+Copyright (c) 2010-2011, Sonatype, Inc.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout" xmlns:f="/lib/form">
+    <l:layout title="${it.pageTitle}" permission="${it.viewPermission}" norefresh="true">
+        <st:include page="sidepanel.jelly" from="${it.sidePanelOwner}"/>
+
+        <j:set var="images" value="${it.imagesPath}"/>
+        <j:set var="help" value="${it.helpPath}"/>
+
+        <l:main-panel>
+            <h1><img src="${it.iconPath}" alt="icon" style="float: right"/> ${it.displayName}</h1>
+            
+            <j:set var="bundles" value="${it.vault.bundles}"/>
+            <j:if test="${!empty(bundles)}">
+                <div>
+                    <table border="0" cellpadding="2" width="100%">
+                        <thead>
+                            <tr>
+                                <td width="20"><!-- Icon --></td>
+                                <td><strong>Name</strong></td>
+                                <td><strong>Type</strong></td>
+                                <td width="40"><strong>Packages</strong></td>
+                                <td align="center"><strong>Operation</strong></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <j:forEach var="bundle" items="${bundles}">
+                                <tr>
+                                    <td>
+                                        <a href="bundle/${bundle.name}">
+                                            <img src="${images}/archive-icon-16x16.png" hspace="2" alt="edit"/>
+                                        </a>
+                                    </td>
+                                    <td><a href="bundle/${bundle.name}">${bundle.name}</a></td>
+                                    <td>${bundle.type}</td>
+                                    <td align="right">${bundle.packages.size()}</td>
+                                    <td align="center">
+                                        <a href="bundle/${bundle.name}">
+                                            <img src="${images}/info-icon-16x16.png" hspace="2" alt="edit"/>
+                                        </a>
+                                        <a href="bundle/${bundle.name}/delete" onclick="return confirm('Delete bundle?')">
+                                            <img src="${images}/remove-icon-16x16.png" hspace="2" alt="delete"/>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </j:forEach>
+                        </tbody>
+                    </table>
+                </div>
+
+                <br/>
+            </j:if>
+
+            <div>
+                <f:form method="post" action="createBundle">
+                    <f:section title="Create Bundle">
+                        <f:entry title="Name">
+                            <f:textbox name="name" />
+                        </f:entry>
+
+                        <f:entry title="Type">
+                            <f:textbox name="type"/>
+                        </f:entry>
+                    </f:section>
+
+                    <f:entry>
+                        <f:submit value="Create"/>
+                    </f:entry>
+                </f:form>
+            </div>
+        </l:main-panel>
+    </l:layout>
+</j:jelly>
