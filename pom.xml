@@ -38,6 +38,8 @@ THE SOFTWARE.
 
   <name>Hudson Vault Plugin</name>
 
+  <url>http://wiki.hudson-ci.org/display/HUDSON/Vault+Plugin</url>
+
   <licenses>
     <license>
       <name>The MIT license</name>
