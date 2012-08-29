@@ -33,7 +33,7 @@ THE SOFTWARE.
   </parent>
 
   <artifactId>vault</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2-SNAPSHOT</version>
   <packaging>hpi</packaging>
 
   <name>Hudson Vault Plugin</name>
